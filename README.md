@@ -67,7 +67,7 @@ project_root/
 └── README.md                   # Project documentation (this file)
 
 
-Installation
+##Installation
 
 Clone the repository:
 
@@ -82,7 +82,7 @@ Set up PDF files:
 
 Place your PDF documents in a folder (Here it is kept at "/Users/ankurbhargava/Downloads/GuidePointFinalSubmission/Files" 
 
-Usage
+##Usage
 Running the API
 
 Start the API Server:
@@ -103,7 +103,7 @@ curl -X POST "http://127.0.0.1:8000/query" \
  -H "Content-Type: application/json" \
  -d '{"query": "What is AI?", "search_type": "semantic"}'
 
-API Endpoints
+##API Endpoints
 
 GET /
 Returns a welcome message.
@@ -122,7 +122,7 @@ A list of documents with title, source, and a snippet of content.
 
 The latency (in seconds) for processing the query.
 
-CI/CD Pipeline
+##CI/CD Pipeline
 
 The CI/CD pipeline is set up using GitHub Actions. The workflow is defined in .github/workflows/ci-pipeline.yml and performs the following:
 
@@ -143,7 +143,7 @@ Dummy Test Example (tests/dummy_test.py)
 def test_dummy():
     assert 1 + 1 == 2
 
-Latency Analysis
+##Latency Analysis
 
 Latency is measured in two ways:
 
