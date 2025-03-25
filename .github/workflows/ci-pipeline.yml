@@ -35,8 +35,8 @@ jobs:
 
       - name: Set up Git user
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "Ankur Bhargava"
+          git config --global user.email "ankur.bhargava2016@gmail.com"
 
       - name: Create and Push Release Branch
         run: |
