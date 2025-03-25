@@ -3,7 +3,7 @@ import os
 import time
 import asyncio
 import concurrent.futures
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 from typing import List
@@ -18,6 +18,7 @@ from app.indexer import index_documents
 from app.search import Retriever
 from langchain_chroma import Chroma
 from config import PERSIST_DIRECTORY, TOP_K
+import logging
 
 # Global variables for our index (vectorstore) and retriever.
 retriever = None
@@ -78,6 +79,17 @@ app = FastAPI(
     version="1.0",
     lifespan=lifespan
 )
+
+# Middleware to log latency for every request
+@app.middleware("http")
+async def log_request_latency(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    end_time = time.time()
+    total_latency = end_time - start_time
+    logging.info(f"Request: {request.method} {request.url} took {total_latency:.4f} seconds")
+    return response
+
 
 # Pydantic request model.
 class QueryRequest(BaseModel):
