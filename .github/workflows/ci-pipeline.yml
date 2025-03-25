@@ -27,3 +27,21 @@ jobs:
 
       - name: Run Dummy Test
         run: echo "Dummy test passed ✅"
+
+create-release-branch:
+    runs-on: ubuntu-latest
+    needs: test  # Ensure tests pass before creating the release branch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "Ankur Bhargava"
+          git config --global user.email "ankur.bhargava2016@gmail.com"
+
+      - name: Create and Push Release Branch
+        run: |
+          git checkout -b release || git checkout release
+          git push origin release
