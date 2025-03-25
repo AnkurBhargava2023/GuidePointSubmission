@@ -43,30 +43,6 @@ This project is a robust PDF Q&A system that:
   
 ---
 
-## Project Structure
-
-```plaintext
-project_root/
-├── api/
-│   ├── __init__.py             # (Can be empty or expose API-level objects)
-│   └── main.py                 # FastAPI application with endpoints and latency logging
-├── app/
-│   ├── __init__.py             # Exports key modules (PDFLoader, chunk_documents, etc.)
-│   ├── pdf_loader.py           # Loads PDFs using PyPDFLoader, attaches metadata (title, source)
-│   ├── chunking.py             # Splits Document objects into chunks, preserving metadata
-│   ├── embeddings.py           # Loads embedding models (USE/BGE) via LangChain
-│   ├── indexer.py              # Indexes chunked documents into Chroma vector store
-│   └── search.py               # Contains the Retriever class for semantic, lexical, and hybrid search
-├── config.py                   # Global configuration (persist directory, weights, chunking parameters, etc.)
-├── .github/
-│   └── workflows/
-│       └── ci-pipeline.yml     # GitHub Actions workflow for CI/CD pipeline
-├── tests/
-│   └── dummy_test.py           # A dummy test for CI pipeline
-├── requirements.txt            # List of project dependencies
-└── README.md                   # Project documentation (this file)
-
-
 ## Installation
 
 Clone the repository:
@@ -81,6 +57,7 @@ pip install -r requirements.txt
 Set up PDF files:
 
 Place your PDF documents in a folder (Here it is kept at "/Users/ankurbhargava/Downloads/GuidePointFinalSubmission/Files" 
+
 
 ## Usage
 Running the API
@@ -103,6 +80,7 @@ curl -X POST "http://127.0.0.1:8000/query" \
  -H "Content-Type: application/json" \
  -d '{"query": "What is AI?", "search_type": "semantic"}'
 
+
 ## API Endpoints
 
 GET /
@@ -121,6 +99,7 @@ Returns a response containing:
 A list of documents with title, source, and a snippet of content.
 
 The latency (in seconds) for processing the query.
+
 
 ## CI/CD Pipeline
 
@@ -154,3 +133,28 @@ Middleware Logging:
 Endpoint Measurement:
 
         The /query endpoint records the start time before processing and calculates the total processing time once the query is processed. This value is returned in the API response as latency.
+
+## Project Structure
+
+```plaintext
+project_root/
+├── api/
+│   ├── __init__.py             # (Can be empty or expose API-level objects)
+│   └── main.py                 # FastAPI application with endpoints and latency logging
+├── app/
+│   ├── __init__.py             # Exports key modules (PDFLoader, chunk_documents, etc.)
+│   ├── pdf_loader.py           # Loads PDFs using PyPDFLoader, attaches metadata (title, source)
+│   ├── chunking.py             # Splits Document objects into chunks, preserving metadata
+│   ├── embeddings.py           # Loads embedding models (USE/BGE) via LangChain
+│   ├── indexer.py              # Indexes chunked documents into Chroma vector store
+│   └── search.py               # Contains the Retriever class for semantic, lexical, and hybrid search
+├── config.py                   # Global configuration (persist directory, weights, chunking parameters, etc.)
+├── .github/
+│   └── workflows/
+│       └── ci-pipeline.yml     # GitHub Actions workflow for CI/CD pipeline
+├── tests/
+│   └── dummy_test.py           # A dummy test for CI pipeline
+├── requirements.txt            # List of project dependencies
+└── README.md                   # Project documentation (this file)
+
+
