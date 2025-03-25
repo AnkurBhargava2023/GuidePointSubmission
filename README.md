@@ -17,7 +17,6 @@ This repository contains a solution for a PDF-based question answering system bu
 - [API Endpoints](#api-endpoints)
 - [CI/CD Pipeline](#cicd-pipeline)
 - [Latency Analysis](#latency-analysis)
-- [License](#license)
 
 ---
 
@@ -67,3 +66,91 @@ project_root/
 ├── requirements.txt            # List of project dependencies
 └── README.md                   # Project documentation (this file)
 
+
+Installation
+
+Clone the repository:
+
+git clone https://github.com/AnkurBhargava2023/GuidePointSubmission.git
+cd your-repo
+
+Install Dependencies:
+
+pip install -r requirements.txt
+
+Set up PDF files:
+
+Place your PDF documents in a folder (Here it is kept at "/Users/ankurbhargava/Downloads/GuidePointFinalSubmission/Files" 
+
+Usage
+Running the API
+
+Start the API Server:
+
+uvicorn api.main:app --reload
+
+The API will be available at http://127.0.0.1:8000.
+
+Test the API:
+
+Navigate to http://127.0.0.1:8000/docs for interactive API documentation.
+
+Use the /query endpoint to send POST requests with your search queries.
+
+Example Query (Using Postman or curl)
+
+curl -X POST "http://127.0.0.1:8000/query" \
+ -H "Content-Type: application/json" \
+ -d '{"query": "What is AI?", "search_type": "semantic"}'
+
+API Endpoints
+
+GET /
+Returns a welcome message.
+
+POST /query
+Accepts a JSON payload:
+
+{
+ 	  "query": "Your search query",
+      "search_type": "semantic" // or "lexical", "hybrid"
+}
+
+Returns a response containing:
+
+A list of documents with title, source, and a snippet of content.
+
+The latency (in seconds) for processing the query.
+
+CI/CD Pipeline
+
+The CI/CD pipeline is set up using GitHub Actions. The workflow is defined in .github/workflows/ci-pipeline.yml and performs the following:
+
+    On Push and PR to main:
+
+        Checks out the repository.
+
+        Sets up Python and installs dependencies.
+
+        Runs a dummy test (tests/dummy_test.py).
+
+    Release Branch Creation:
+
+        After tests pass, a job creates (or updates) a release branch automatically.
+
+Dummy Test Example (tests/dummy_test.py)
+
+def test_dummy():
+    assert 1 + 1 == 2
+
+Latency Analysis
+
+Latency is measured in two ways:
+
+    Middleware Logging:
+
+        Every incoming request is intercepted by a middleware that logs the total time taken (latency) for processing the request. This is logged to the console using the logging module.
+
+    Endpoint Measurement:
+
+        The /query endpoint records the start time before processing and calculates the total processing time once the query is processed. This value is returned in the API response as latency.
